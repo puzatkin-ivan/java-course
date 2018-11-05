@@ -4,21 +4,17 @@ import java.util.*;
 
 public class Main {
   public static void main(String[] args) {
-    try
-    {
+    try {
       if (args.length != 2) {
         System.out.println("Incorrect number of arguments");
         return;
       }
 
       FileReader iStream = new FileReader(args[0]);
-
-      ArrayList<String> wordsList = new ArrayList<>();
-      Map<String, Integer> storage = processFile(iStream, wordsList);
-      printWords(storage, wordsList, Integer.valueOf(args[1]));
-    }
-    catch (Exception ex)
-    {
+      ArrayList<String> priorityList = new ArrayList<>();
+      Map<String, Integer> storage = processFile(iStream, priorityList);
+      printWords(storage, priorityList, Integer.valueOf(args[1]));
+    } catch (Exception ex) {
       System.out.println(ex.toString());
     }
   }
