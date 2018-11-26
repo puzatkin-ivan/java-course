@@ -1,0 +1,15 @@
+com\Customer\CustomerType.class
+com\Report\ISupermarketReport.class
+com\Supermarket\Logger\SupermarketLogger.class
+com\Main.class
+com\Supermarket\Watcher\ISupermarketWatcher.class
+com\Customer\Customer.class
+com\Product\ProductType.class
+com\Discount\Discount.class
+com\Supermarket\Supermarket$State.class
+com\Supermarket\Supermarket.class
+com\Simulator\SupermarketSimulator.class
+com\Product\Product.class
+com\Supermarket\Watcher\SupermarketWatcher.class
+com\Supermarket\Logger\ISupermarketLogger.class
+com\Product\ProductList.class
