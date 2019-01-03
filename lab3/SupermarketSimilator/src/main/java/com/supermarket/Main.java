@@ -1,6 +1,5 @@
 package com.supermarket;
 
-
 public class Main {
     private static final int ITERATIONS_COUNT  = 30;
 
