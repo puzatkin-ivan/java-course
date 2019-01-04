@@ -44,7 +44,7 @@ public class SupermarketWatcher {
     }
 
     void handleCustomerGoToCashDesk(ICustomer customer) {
-        this.stream.println(prepareTimeLog() + " Customer " + customer.getName() + "  go to CashDesk");
+        this.stream.println(prepareTimeLog() + " Customer " + customer.getName() + " go to CashDesk");
     }
 
     void handleNewBill(IBill bill) {

@@ -13,4 +13,5 @@ public interface ICustomer {
 
     void setCustomerId(int customerId);
     int getCustomerId();
+    boolean isBasketEmpty();
 }

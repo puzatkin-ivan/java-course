@@ -3,6 +3,7 @@ package com.supermarket.customer;
 import com.supermarket.paymentMethod.PaymentMethod;
 import com.supermarket.product.*;
 import java.util.List;
+import java.util.Random;
 
 public class Customer implements ICustomer {
     private final String name;
@@ -38,7 +39,8 @@ public class Customer implements ICustomer {
 
     @Override
     public PaymentMethod getPaymentMethod() {
-        return PaymentMethod.Cash;
+        PaymentMethod[] pm = PaymentMethod.values();
+        return pm[new Random().nextInt(pm.length - 1)];
     }
 
     @Override
@@ -51,7 +53,8 @@ public class Customer implements ICustomer {
         return this.customerId;
     }
 
-    boolean isBasketEmpty() {
+    @Override
+    public boolean isBasketEmpty() {
         return products.size() == 0;
     }
 }

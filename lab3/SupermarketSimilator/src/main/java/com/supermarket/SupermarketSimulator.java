@@ -3,8 +3,16 @@ package com.supermarket;
 import com.supermarket.customer.*;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SupermarketSimulator {
+    private enum Action {
+        TakeProduct,
+        AcceptCustomer,
+        GoToCashDesk,
+        ProcessCashDesk
+    }
+    private static final Action[] availableActions = Action.values();
     private final Supermarket supermarket;
 
     public SupermarketSimulator(Supermarket supermarket) {
@@ -13,25 +21,38 @@ public class SupermarketSimulator {
 
     public void work(int iterationsCount) {
         supermarket.open();
+
         while (--iterationsCount >= 0) {
             doExecute();
-            break;
+        }
+        while (this.supermarket.hasCustomers()) {
+            ICustomer customer = this.supermarket.getRandomCustomer();
+            this.supermarket.moveCustomerToCashDesk(customer.getCustomerId());
+            this.supermarket.processCashDesk();
         }
         supermarket.close();
     }
 
     private void doExecute() {
-        this.supermarket.addCustomer(makeCustomer());
-        ICustomer customer = this.supermarket.getRandomCustomer();
-        this.supermarket.doCustomerTookProduct(customer);
-        this.supermarket.moveCustomerToCashDesk(customer.getCustomerId());
-        this.supermarket.processCashDesk();
+        Action randomAction = availableActions[new Random().nextInt(availableActions.length - 1)];
+        if (randomAction == Action.AcceptCustomer || !supermarket.hasCustomers()) {
+            supermarket.addCustomer(makeCustomer());
+        } else {
+            ICustomer customer = this.supermarket.getRandomCustomer();
+            if (randomAction == Action.GoToCashDesk && !customer.isBasketEmpty() || !supermarket.hasProducts()) {
+                supermarket.moveCustomerToCashDesk(customer.getCustomerId());
+            } else if (randomAction == Action.TakeProduct) {
+                this.supermarket.doCustomerTookProduct(customer);
+            }
+        }
     }
 
     private ICustomer makeCustomer() {
+        CustomerType[] types = CustomerType.values();
+        int typeId = ThreadLocalRandom.current().nextInt(0, types.length - 1);
+        CustomerType customerType = types[typeId];
         String name = getRandomName();
-        ICustomer customer = new Customer(name, CustomerType.Retired, new ArrayList<>());
-        return customer;
+        return new Customer(name, customerType, new ArrayList<>());
     }
 
     private String getRandomName() {

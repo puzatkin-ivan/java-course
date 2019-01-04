@@ -13,7 +13,7 @@ public class CashDesk implements ICashDesk {
 
     @Override
     public IBill acceptCustomer(ICustomer customer) {
-        Discount discount = null;
+        Discount discount = new Discount(0);
         if (customer.getCustomerType() == CustomerType.Retired) {
             discount = new Discount(new Random().nextInt(MAX_SIZE_DISCOUNT));
         }
